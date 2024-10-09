@@ -13,11 +13,37 @@ Create a program that generates Fibonacci numbers less than a limit and writes t
 
 Task: Generate the Fibonacci numbers less than 100 and write them to `fibonacci_100.txt`
 """
+import argparse
 
-def some_function(an_argument):
-    # Do something
+def gen_fib(x):
+	left = 0
+	right = 1
+	tem = 0
+	fib_list = []
+	while left + right < x:
+		if(len(fib_list) == 0):
+			fib_list.append(left)
+			fib_list.append(right)
+			
+		tem = right
+		right = left+right
+		left = tem
+		fib_list.append(right)
+	return fib_list
 
-    return something
+if __name__ == "__main__":  
+	parser = argparse.ArgumentParser()
+	parser.add_argument('upper_limit', type = int, help ='upper limit for the fibonacci number')
+	parser.add_argument('output_file_name', type = str, help = 'output file name')
+	args = parser.parse_args()
+	print(f"The upper limit is {args.upper_limit}")
+	print(f"The output file is {args.output_file_name}")
 
-if __name__ == "__main__":
-    # Do stuff here
+	try :
+		with open( args.output_file_name, 'r+') as hey:
+			hey.write(','.join(map(str, gen_fib(args.upper_limit))))
+
+	except FileNotFoundError:
+		print(f"Error: File '{args.output_file_name}' not found.")
+
+	
