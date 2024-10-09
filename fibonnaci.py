@@ -15,12 +15,12 @@ Task: Generate the Fibonacci numbers less than 100 and write them to `fibonacci_
 """
 import argparse
 
-def gen_fib(x):
+def gen_fib(limit):
 	left = 0
 	right = 1
 	tem = 0
 	fib_list = []
-	while left + right < x:
+	while left + right < limit:
 		if(len(fib_list) == 0):
 			fib_list.append(left)
 			fib_list.append(right)
